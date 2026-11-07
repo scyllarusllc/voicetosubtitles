@@ -37,14 +37,13 @@ python -m uvicorn backend.app:app --host 127.0.0.1 --port 8765 --workers 1
 
 首次识别自动从 Hugging Face 下载公开 Whisper 模型，需联网且可能较慢；下载完成后模型缓存于 Hugging Face 默认缓存目录，上传识别可离线使用。不需要 Hugging Face token；匿名请求可能有速率限制。也可将 `WHISPER_MODEL` 指向已下载的 CTranslate2 Whisper 模型目录。
 
-开发前端时，先在一个终端启动后端，再另开终端：
+开发时，安装好上述 Python 和前端依赖后，在项目根目录运行：
 
 ```bash
-cd frontend
-npm run dev
+make dev
 ```
 
-访问 Vite 打印的地址（一般为 http://127.0.0.1:5173）。`/api` 代理到 8765。构建后的前端由 FastAPI 同源提供，无需单独运行 Node 服务。
+同时启动带自动重载的 FastAPI 后端（8765）和 Vite 前端（http://127.0.0.1:5173），无需提前构建前端。`/api` 代理到 8765；按 Ctrl+C 停止两个服务。请先停止占用这两个端口的旧服务。需要 Bash 和 Make；Windows 可在 WSL 中运行。构建后的前端仍可通过 `./scripts/start.sh` 由 FastAPI 同源提供，无需单独运行 Node 服务。
 
 ## 使用
 
